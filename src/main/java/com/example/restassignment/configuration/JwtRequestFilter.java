@@ -22,9 +22,10 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private static final String AUTH_HEADER_PREFIX = "Bearer ";
 
-    private Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
+    private static final String AUTH_HEADER_PREFIX = "Bearer ";
+    private static Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
+
     @Autowired
     private JwtUtils jwtUtils;
     @Autowired

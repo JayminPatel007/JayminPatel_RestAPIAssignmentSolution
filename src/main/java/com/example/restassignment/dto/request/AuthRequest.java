@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class JwtRequest {
+public class AuthRequest {
     private String username;
     private String password;
 }

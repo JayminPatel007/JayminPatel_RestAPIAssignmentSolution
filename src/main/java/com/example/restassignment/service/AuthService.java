@@ -1,7 +1,7 @@
 package com.example.restassignment.service;
 
-import com.example.restassignment.dto.request.JwtRequest;
-import com.example.restassignment.dto.response.JwtResponse;
+import com.example.restassignment.dto.request.AuthRequest;
+import com.example.restassignment.dto.response.AuthResponse;
 import com.example.restassignment.entity.User;
 import com.example.restassignment.repository.UserRepository;
 import com.example.restassignment.utils.JwtUtils;
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtService {
+public class AuthService {
     @Autowired
     private JwtUtils jwtUtils;
     @Autowired
@@ -27,14 +27,14 @@ public class JwtService {
     @Qualifier("userDetails")
     private UserDetailsService userDetailsService;
 
-    public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
-        String username = jwtRequest.getUsername();
-        String password = jwtRequest.getPassword();
+    public AuthResponse createAccessToken(AuthRequest authRequest) throws Exception {
+        String username = authRequest.getUsername();
+        String password = authRequest.getPassword();
         authenticate(username, password);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         final String accessToken = jwtUtils.generateToken(userDetails);
         User user = userRepository.findById(username).get();
-        return new JwtResponse(user, accessToken);
+        return new AuthResponse(user, accessToken);
     }
 
     private void authenticate(String username, String password) throws Exception {
